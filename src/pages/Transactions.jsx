@@ -56,6 +56,7 @@ export const Transactions = () => {
 		"Date Completed",
 		"TransType",
 		"Type",
+		"Customer Name",
 		"Amount",
 		"Status",
 		"Provider",
@@ -234,6 +235,9 @@ export const Transactions = () => {
 										{row.type}
 									</td>
 									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+										George
+									</td>
+									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
 										{row.amount}
 									</td>
 									<td
@@ -247,7 +251,7 @@ export const Transactions = () => {
 												: "text-gray-300 bg-gray-900 p-2 flex justify-center items-center rounded-lg"
 										} whitespace-nowrap`}
 									>
-										{row.status}
+										{row.status === "processed" ? "successful" : row.status}
 									</td>
 									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
 										{row.transactionType === "funding_wallet"
