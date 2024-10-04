@@ -1,0 +1,9 @@
+[2024-09-05 17:12:10] local.INFO: array (
+  'serviceCode' => 'VAR',
+  'msisdn' => '2348038527722',
+  'network' => 'MTN',
+  'amount' => '500.00',
+  'request_id' => '1003011480MTN05092024050920',
+  'product_id' => 'MFIN-5-OR',
+  'incoming_IP' => '102.211.163.143',
+) 

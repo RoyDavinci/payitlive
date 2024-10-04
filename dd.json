@@ -1,0 +1,37 @@
+{
+	"status": true,
+	"message": "Successful transaction",
+	"responseCode": 200,
+	"data": {
+		"id": 84380775,
+		"amountGenerated": 4651.16,
+		"tariff": null,
+		"debtAmount": 0,
+		"debtRemaining": 0,
+		"disco": "ABUJA",
+		"orderId": "A2534A586C2B92898EEAD3BF30903061",
+		"receiptNo": "70412024090213895017",
+		"tax": 348.84,
+		"vendTime": "2024-09-02 17:06:32",
+		"token": "4057-3806-7029-1101-9981",
+		"totalAmountPaid": 5000,
+		"units": 22.2,
+		"vendAmount": 0,
+		"vendRef": "70412024090213895017",
+		"responseCode": 100,
+		"responseMessage": "SUCCESSFUL",
+		"address": "Undefined Und St. Dakwo",
+		"name": "NDIDIAMAKA ALANAKU- ",
+		"phoneNo": null,
+		"charges": "0",
+		"tariffIndex": null,
+		"parcels": [
+			{ "type": "TOKEN", "content": "40573806702911019981" },
+			{ "type": "KCT1", "content": "33102355265612340399" },
+			{ "type": "KCT2", "content": "06924355885442234317" }
+		],
+		"demandCategory": "NMD",
+		"assetProvider": "ABUJA",
+		"tariffClass": "Prepaid Residential 1PH 3PH"
+	}
+}
