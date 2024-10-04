@@ -236,7 +236,7 @@ const UserTransaction = () => {
 												: "text-gray-300 bg-gray-900 p-2 flex justify-center items-center rounded-lg"
 										} whitespace-nowrap`}
 									>
-										{row.status}
+										{row.status === "processed" ? "successful" : row.status}
 									</td>
 									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
 										{row.transactionType === "funding_wallet"
