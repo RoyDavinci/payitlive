@@ -124,7 +124,7 @@ export const Transactions = () => {
 		setLoading(true);
 		const token = localStorage.getItem("payittoken");
 
-		const url = `https://staging.payit.com.ng/administrator/customer/customers/all-transactions?startDate=${date}&endDate=${date}`;
+		const url = `${baseUrl.staging}customer/customers/all-transactions?startDate=${date}&endDate=${date}`;
 
 		const id = userId.trim();
 		try {
