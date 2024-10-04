@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import baseUrl from "../config/baseUrl";
 
 export const Login = () => {
 	const [showPassword, setShowPassword] = useState(true);
@@ -31,10 +32,10 @@ export const Login = () => {
 		if (isValidEmail) {
 			try {
 				const { email, password } = formDetails;
-				const { data } = await axios.post(
-					"https://staging.payit.com.ng/administrator/auth/login-user",
-					{ email, password }
-				);
+				const { data } = await axios.post(`${baseUrl.staging}auth/login-user`, {
+					email,
+					password,
+				});
 
 				console.log(data);
 

@@ -1,3 +1,3 @@
 export default {
-	staging: "https://staging.payit.com.ng/administrator/",
+	staging: "https://api.payit.com.ng/administrator/",
 };
