@@ -156,63 +156,69 @@ export const BootstrapTable = ({ transactions }) => {
 						</tr>
 					</thead>
 					<tbody>
-						{transactions.map((row, index) => (
-							<tr
-								key={index}
-								className='hover:bg-gray-800 border-b border-[#2b2b2b] last:border-b-0'
-							>
-								<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-									{handleDateTime(row.dateInitiated)}
-								</td>
-								<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-									{handleDateTime(row.dateCompleted)}
-								</td>
-
-								<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-									{row.transactionType}
-								</td>
-								<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-									{row.type}
-								</td>
-								<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-									George
-								</td>
-								<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-									{row.amount}
-								</td>
-								<td
-									className={`${
-										row.status === "processed"
-											? "text-[#A8E78E] rounded-lg p-2 flex justify-center items-center bg-[#464D42]"
-											: row.status === "failed"
-											? "text-red-300 bg-red-900 p-2 flex justify-center items-center rounded-lg"
-											: row.status === "pending"
-											? "text-gray-300 bg-gray-900 p-2 flex justify-center items-center rounded-lg"
-											: "text-gray-300 bg-gray-900 p-2 flex justify-center items-center rounded-lg"
-									} whitespace-nowrap`}
+						{transactions
+							.sort((a, b) => {
+								const dateA = new Date(a.dateInitiated);
+								const dateB = new Date(b.dateInitiated);
+								return dateB - dateA;
+							})
+							.map((row, index) => (
+								<tr
+									key={index}
+									className='hover:bg-gray-800 border-b border-[#2b2b2b] last:border-b-0'
 								>
-									{row.status === "processed" ? "successful" : row.status}{" "}
-								</td>
-								<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-									{row.transactionType === "funding_wallet"
-										? "PayIT Account"
-										: row.provider.providerName}
-								</td>
+									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+										{handleDateTime(row.dateInitiated)}
+									</td>
+									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+										{handleDateTime(row.dateCompleted)}
+									</td>
 
-								<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-									{row.transactionId}
-								</td>
+									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+										{row.transactionType}
+									</td>
+									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+										{row.type}
+									</td>
+									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+										George
+									</td>
+									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+										{row.amount}
+									</td>
+									<td
+										className={`${
+											row.status === "processed"
+												? "text-[#A8E78E] rounded-lg p-2 flex justify-center items-center bg-[#464D42]"
+												: row.status === "failed"
+												? "text-red-300 bg-red-900 p-2 flex justify-center items-center rounded-lg"
+												: row.status === "pending"
+												? "text-gray-300 bg-gray-900 p-2 flex justify-center items-center rounded-lg"
+												: "text-gray-300 bg-gray-900 p-2 flex justify-center items-center rounded-lg"
+										} whitespace-nowrap`}
+									>
+										{row.status === "processed" ? "successful" : row.status}{" "}
+									</td>
+									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+										{row.transactionType === "funding_wallet"
+											? "PayIT Account"
+											: row.provider.providerName}
+									</td>
 
-								<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-									<div className='text-center justify-center items-center flex'>
-										<FaEye
-											className='cursor-pointer '
-											onClick={() => handleViewTransactionDetails(row)}
-										/>
-									</div>
-								</td>
-							</tr>
-						))}
+									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+										{row.transactionId}
+									</td>
+
+									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+										<div className='text-center justify-center items-center flex'>
+											<FaEye
+												className='cursor-pointer '
+												onClick={() => handleViewTransactionDetails(row)}
+											/>
+										</div>
+									</td>
+								</tr>
+							))}
 					</tbody>
 				</table>
 			</div>
