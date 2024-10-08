@@ -181,7 +181,7 @@ export const BootstrapTable = ({ transactions }) => {
 										{row.type}
 									</td>
 									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-										George
+										{row?.sourceCustomerData?.customerName}
 									</td>
 									<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
 										{row.amount}
