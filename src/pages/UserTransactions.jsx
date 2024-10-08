@@ -203,8 +203,8 @@ const UserTransaction = () => {
 						<tbody>
 							{transactions
 								.sort((a, b) => {
-									const dateA = new Date(a.dateInitiated);
-									const dateB = new Date(b.dateInitiated);
+									const dateA = new Date(handleDateTime(a.dateInitiated));
+									const dateB = new Date(handleDateTime(b.dateInitiated));
 									return dateB - dateA;
 								})
 								.map((row, index) => (

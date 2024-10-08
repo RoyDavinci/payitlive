@@ -277,52 +277,58 @@ export const Users = () => {
 											</tr>
 										</thead>
 										<tbody className='no-scrollbar'>
-											{users.map((row, index) => {
-												const balance = getPrimaryWallet(row.accounts);
-												return (
-													<tr
-														key={index}
-														className='hover:bg-gray-800 border-b border-[#2b2b2b]'
-													>
-														<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-															{handleDateTime(row.createdAt)}
-														</td>
-														<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-															{row?.firstName}
-														</td>
-														<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-															{row?.lastName}
-														</td>
-														<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-															{row?.email}
-														</td>
-														<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-															{row?.phone}
-														</td>
-														<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-															₦ {Intl.NumberFormat().format(Number(balance))}
-														</td>
-														<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-															{row?.currentTier?.name}
-														</td>
-														<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-															<FaEye
-																className='cursor-pointer'
-																onClick={() => handleViewDetails(row)}
-															/>
-														</td>
-														<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
-															<div className='flex justify-center'>
-																<button className='bg-[#868150] text-white px-4 py-2 rounded-lg'>
-																	<Link to={`/user-status/${row.customerId}`}>
-																		Manage Account
-																	</Link>
-																</button>
-															</div>
-														</td>
-													</tr>
-												);
-											})}
+											{users
+												.sort((a, b) => {
+													const dateA = new Date(handleDateTime(a.createdAt));
+													const dateB = new Date(handleDateTime(b.createdAt));
+													return dateB - dateA;
+												})
+												.map((row, index) => {
+													const balance = getPrimaryWallet(row.accounts);
+													return (
+														<tr
+															key={index}
+															className='hover:bg-gray-800 border-b border-[#2b2b2b]'
+														>
+															<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+																{handleDateTime(row.createdAt)}
+															</td>
+															<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+																{row?.firstName}
+															</td>
+															<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+																{row?.lastName}
+															</td>
+															<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+																{row?.email}
+															</td>
+															<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+																{row?.phone}
+															</td>
+															<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+																₦ {Intl.NumberFormat().format(Number(balance))}
+															</td>
+															<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+																{row?.currentTier?.name}
+															</td>
+															<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+																<FaEye
+																	className='cursor-pointer'
+																	onClick={() => handleViewDetails(row)}
+																/>
+															</td>
+															<td className='py-4 px-4 text-center text-[#6C6C6C] whitespace-nowrap'>
+																<div className='flex justify-center'>
+																	<button className='bg-[#868150] text-white px-4 py-2 rounded-lg'>
+																		<Link to={`/user-status/${row.customerId}`}>
+																			Manage Account
+																		</Link>
+																	</button>
+																</div>
+															</td>
+														</tr>
+													);
+												})}
 										</tbody>
 									</table>
 								</div>
