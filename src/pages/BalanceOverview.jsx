@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import baseUrl from "../config/baseUrl";
@@ -16,6 +16,7 @@ const partnerBalances = [
 const isLowBalance = (balance) => balance < 10000;
 
 const BalanceOverview = () => {
+	const [partners, setPArtners] = useState([]);
 	const navigate = useNavigate();
 
 	const getBalances = async () => {
@@ -28,7 +29,8 @@ const BalanceOverview = () => {
 				`${baseUrl.staging}product/products/all`,
 				{ headers: { Authorization: `bearer ${token}` } }
 			);
-			console.log(data);
+			console.log(data.products);
+			setPArtners(data.products);
 		} catch (error) {
 			if (!error.response) {
 				toast.error("Network error: Unable to connect to the server.");
@@ -54,6 +56,8 @@ const BalanceOverview = () => {
 		}
 	};
 
+	// console.log(partners.products);
+
 	useEffect(() => {
 		getBalances();
 	}, []);
@@ -63,7 +67,7 @@ const BalanceOverview = () => {
 			<h1 className='text-2xl font-bold'>Partner Balance Overview</h1>
 
 			{/* Scrollable grid container */}
-			{partnerBalances.length <= 0 && (
+			{partners.length <= 0 && (
 				<>
 					<div className='flex justify-center flex-col bg-[#3F3F3F] mt-20 h-screen text-white items-center text-center'>
 						<h1 className='text-2xl font-bold mb-4 '>Manage Balances</h1>
@@ -71,20 +75,20 @@ const BalanceOverview = () => {
 					</div>
 				</>
 			)}
-			{partnerBalances.length > 0 && (
+			{partners.length > 0 && (
 				<>
 					<div className='flex-1 overflow-auto bg-[#3F3F3F] p-6 rounded-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-						{partnerBalances.map((partner) => (
+						{partners.map((partner) => (
 							<div
-								key={partner.id}
+								key={partner.productId}
 								className={`p-4 rounded-lg space-y-2 shadow-lg ${
 									isLowBalance(partner.balance) ? "bg-red-500" : "bg-[#666666]"
 								}`}
 							>
 								<h2 className='text-xl font-semibold'>{partner.partnerName}</h2>
-								<p className='text-sm text-[#FEF48B]'>
+								{/* <p className='text-sm text-[#FEF48B]'>
 									Product: {partner.product}
-								</p>
+								</p> */}
 								<p className='text-lg'>
 									Balance:{" "}
 									<span
