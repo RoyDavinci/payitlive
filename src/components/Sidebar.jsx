@@ -86,6 +86,7 @@ export const Sidebar = () => {
 					title: "User Fund Requests",
 					link: "/transaction-management/fund-requests",
 				},
+				{ id: 5, title: "View Insightful Reports", link: "/reports/insights" },
 			],
 		},
 		{ id: 5, title: "Audit Trail", link: "/audit", icon: FaClipboardList },
@@ -121,17 +122,14 @@ export const Sidebar = () => {
 				},
 			],
 		},
+		// {
+		// 	id: 9,
+		// 	title: "Reporting and Insights",
+		// 	icon: FaChartBar, // You can choose an appropriate icon
+		// 	children: [{ id: 2, title: "Custom Reports", link: "/reports/custom" }],
+		// },
 		{
-			id: 10,
-			title: "Reporting and Insights",
-			icon: FaChartBar, // You can choose an appropriate icon
-			children: [
-				{ id: 1, title: "View Insightful Reports", link: "/reports/insights" },
-				{ id: 2, title: "Custom Reports", link: "/reports/custom" },
-			],
-		},
-		{
-			id: 11,
+			id: 9,
 			title: "Notifications",
 			icon: FaExclamationCircle, // Replace with a suitable icon
 			children: [
@@ -143,9 +141,9 @@ export const Sidebar = () => {
 				},
 			],
 		},
-		{ id: 12, title: "Settings", link: "/settings", icon: FaCog },
+		{ id: 10, title: "Settings", link: "/settings", icon: FaCog },
 		{
-			id: 13,
+			id: 11,
 			title: "Transaction",
 			link: "/user-transactions",
 			icon: FaExchangeAlt,
