@@ -48,16 +48,6 @@ export const Sidebar = () => {
 					id: 2,
 					title: "Staff",
 					link: "/staff",
-					children: [
-						{
-							id: 1,
-							title: "role management",
-						},
-						{
-							id: 1,
-							title: "role management",
-						},
-					],
 				},
 			],
 			icon: AccountCircleOutlinedIcon,
@@ -74,8 +64,8 @@ export const Sidebar = () => {
 			link: "",
 			icon: FaExchangeAlt,
 			children: [
-				{ id: 1, title: "Transactions", link: "/transactions" },
-				{ id: 2, title: "Transaction History", link: "/user-transactions" },
+				{ id: 1, title: "All Transactions", link: "/transactions" },
+				{ id: 2, title: "Search by User ID", link: "/user-transactions" },
 				{
 					id: 3,
 					title: "Wallet Management",
