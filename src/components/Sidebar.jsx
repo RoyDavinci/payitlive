@@ -44,11 +44,33 @@ export const Sidebar = () => {
 			title: "User Management",
 			children: [
 				{ id: 1, title: "Users", link: "/users" },
-				{ id: 2, title: "Staff", link: "/staff" },
+				{
+					id: 2,
+					title: "Staff",
+					link: "/staff",
+					children: [
+						{
+							id: 1,
+							title: "role management",
+						},
+						{
+							id: 1,
+							title: "role management",
+						},
+					],
+				},
 			],
 			icon: AccountCircleOutlinedIcon,
 		},
-		{ id: 3, title: "Role Management", link: "/", icon: Diversity3Icon },
+		{
+			id: 3,
+			title: "Role Management",
+			icon: Diversity3Icon,
+			children: [
+				{ id: 1, title: "Assign Access", link: "/assign-access" },
+				// { id: 2, title: "Transaction History", link: "/user-transactions" },
+			],
+		},
 		{
 			id: 4,
 			title: "Transactions",
@@ -59,31 +81,9 @@ export const Sidebar = () => {
 				{ id: 2, title: "Transaction History", link: "/user-transactions" },
 			],
 		},
-		{ id: 5, title: "Report", link: "/reports", icon: FaClipboardList },
-		{ id: 6, title: "Audit Trail", link: "/audit", icon: FaClipboardList },
-		{ id: 7, title: "Assign Access", link: "/assign-access", icon: FaUsersCog },
-		// {
-		// 	id: 8,
-		// 	title: "Customers",
-		// 	icon: FaUsersCog,
-		// 	children: [
-		// 		{ id: 1, title: "Account Overview", link: "/account-overview" },
-		// 		{ id: 2, title: "Account Management", link: "/account-management" },
-		// 		{
-		// 			id: 3,
-		// 			title: "Initiate Token",
-		// 			link: "/initiate-token",
-		// 		},
-		// 		{
-		// 			id: 4,
-		// 			title: "Create Test Account",
-		// 			link: "/create-test-account",
-		// 		}, // New child added
-		// 		// Add more customer actions here
-		// 	],
-		// },
+		{ id: 5, title: "Audit Trail", link: "/audit", icon: FaClipboardList },
 		{
-			id: 9,
+			id: 7,
 			title: "Complaints",
 			icon: FaExclamationCircle,
 			children: [
@@ -96,7 +96,7 @@ export const Sidebar = () => {
 			],
 		},
 		{
-			id: 10,
+			id: 8,
 			title: "Partner Accounts",
 			icon: FaExchangeAlt, // Use a suitable icon
 			children: [
@@ -115,7 +115,7 @@ export const Sidebar = () => {
 			],
 		},
 		{
-			id: 11,
+			id: 9,
 			title: "Transaction Management",
 			icon: FaDollarSign,
 			children: [
@@ -137,7 +137,7 @@ export const Sidebar = () => {
 			],
 		},
 		{
-			id: 12,
+			id: 10,
 			title: "Reporting and Insights",
 			icon: FaChartBar, // You can choose an appropriate icon
 			children: [
@@ -146,7 +146,7 @@ export const Sidebar = () => {
 			],
 		},
 		{
-			id: 13,
+			id: 11,
 			title: "Notifications",
 			icon: FaExclamationCircle, // Replace with a suitable icon
 			children: [
@@ -158,9 +158,9 @@ export const Sidebar = () => {
 				},
 			],
 		},
-		{ id: 14, title: "Settings", link: "/settings", icon: FaCog },
+		{ id: 12, title: "Settings", link: "/settings", icon: FaCog },
 		{
-			id: 15,
+			id: 13,
 			title: "Transaction",
 			link: "/user-transactions",
 			icon: FaExchangeAlt,
