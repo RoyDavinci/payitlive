@@ -140,7 +140,9 @@ export const Sidebar = () => {
 			link: "/settings",
 			icon: FaCog,
 			children: [
-				{ id: 1, title: "Audit Trail", link: "/audit", icon: FaClipboardList },
+				{ id: 1, title: "Audit Trail", link: "/audit" },
+				{ id: 2, title: "User Settings", link: "/settings" },
+				{ id: 3, title: "Logout", link: "", function: () => handleLogout() },
 			],
 		},
 
@@ -196,15 +198,25 @@ export const Sidebar = () => {
 							</div>
 							{item.children && openItems[item.id] && (
 								<div className='pl-6'>
-									{item.children.map((child) => (
-										<Link
-											key={child.id}
-											className='block p-2 text-[#FEF48B] hover:bg-gray-700'
-											to={child.link}
-										>
-											{child.title}
-										</Link>
-									))}
+									{item.children.map((child) =>
+										child.title === "Logout" ? (
+											<div
+												key={child.id}
+												className='block p-2 text-[#FEF48B] hover:bg-gray-700'
+												onClick={handleLogout}
+											>
+												{child.title}
+											</div>
+										) : (
+											<Link
+												key={child.id}
+												className='block p-2 text-[#FEF48B] hover:bg-gray-700'
+												to={child.link}
+											>
+												{child.title}
+											</Link>
+										)
+									)}
 								</div>
 							)}
 						</div>
