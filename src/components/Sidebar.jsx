@@ -66,10 +66,7 @@ export const Sidebar = () => {
 			id: 3,
 			title: "Role Management",
 			icon: Diversity3Icon,
-			children: [
-				{ id: 1, title: "Assign Access", link: "/assign-access" },
-				// { id: 2, title: "Transaction History", link: "/user-transactions" },
-			],
+			children: [{ id: 1, title: "Assign Access", link: "/assign-access" }],
 		},
 		{
 			id: 4,
@@ -79,6 +76,16 @@ export const Sidebar = () => {
 			children: [
 				{ id: 1, title: "Transactions", link: "/transactions" },
 				{ id: 2, title: "Transaction History", link: "/user-transactions" },
+				{
+					id: 3,
+					title: "Wallet Management",
+					link: "/transaction-management/wallets",
+				},
+				{
+					id: 4,
+					title: "User Fund Requests",
+					link: "/transaction-management/fund-requests",
+				},
 			],
 		},
 		{ id: 5, title: "Audit Trail", link: "/audit", icon: FaClipboardList },
@@ -111,28 +118,6 @@ export const Sidebar = () => {
 					id: 4,
 					title: "Transaction Monitoring",
 					link: "/partner-accounts/transactions",
-				},
-			],
-		},
-		{
-			id: 9,
-			title: "Transaction Management",
-			icon: FaDollarSign,
-			children: [
-				{
-					id: 1,
-					title: "Wallet Management",
-					link: "/transaction-management/wallets",
-				},
-				{
-					id: 2,
-					title: "Transaction History",
-					link: "/transaction-management/history",
-				},
-				{
-					id: 3,
-					title: "User Fund Requests",
-					link: "/transaction-management/fund-requests",
 				},
 			],
 		},
