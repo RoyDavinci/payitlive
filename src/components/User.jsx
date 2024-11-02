@@ -48,6 +48,68 @@ export const Users = () => {
 
 	const [showModal, setShowModal] = useState(false);
 	const [selectedUser, setSelectedUser] = useState(null); // State to hold the selected user
+	const [accounts, setAccounts] = useState([]);
+	const [currentPage, setCurrentPage] = useState(1);
+	// const [currentPage, setCurrentPage] = useState(1);
+	const usersPerPage = 10;
+	const itemsPerPage = 10; // Set how many users you want to show per page
+	const indexOfLastItem = currentPage * itemsPerPage;
+	const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+	const currentUsers = users.slice(indexOfFirstItem, indexOfLastItem);
+
+	// Calculate the items for the current page
+	const indexOfLastUser = currentPage * usersPerPage;
+	const indexOfFirstUser = indexOfLastUser - usersPerPage;
+
+	const handleNextPage = async () => {
+		const totalPages = Math.ceil(users.length / usersPerPage);
+		setLoading(true);
+		if (currentPage < totalPages) {
+			// Increment the current page number
+			setCurrentPage((prevPage) => prevPage + 1);
+
+			// Get the token
+			await getNewItems(currentPage);
+		}
+	};
+
+	const getNewItems = async (item) => {
+		const token = localStorage.getItem("payittoken");
+		console.log("firsted", item);
+		// Calculate the starting index for the current page
+		const userAccounts = await Promise.all(
+			currentUsers.map(async (user) => {
+				const accountData = await getUserAccounts(user.customerId, token);
+				return {
+					...user,
+					accounts: accountData,
+				};
+			})
+		);
+
+		// Merge account data back into the full users array
+		const updatedUsers = [...users];
+		// console.log(currentPage, itemsPerPage, currentPage * itemsPerPage);
+		const indexed = (item + 1) * itemsPerPage - itemsPerPage;
+		console.log("first", indexed);
+		userAccounts.forEach((user, index) => {
+			const originalIndex = indexed + index;
+			console.log(originalIndex);
+			updatedUsers[originalIndex] = user;
+		});
+
+		// Update only the currentUsers array in state
+		setUsers(updatedUsers);
+		setTempUsers(updatedUsers);
+		setLoading(false);
+	};
+
+	const handlePrevPage = async () => {
+		if (currentPage > 1) {
+			setCurrentPage(currentPage - 1);
+		}
+	};
 
 	const handleViewDetails = (user) => {
 		setSelectedUser(user); // Set the selected user
@@ -106,12 +168,18 @@ export const Users = () => {
 			const { data } = await axios.get(`${baseUrl.staging}customer/all`, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
-			const customers = data.customers;
-			// setUsers(customers); // Set users data
 
-			// Step 2: Fetch account data for each user using their customerId
+			// Set the full customers data
+			setUsers(data.customers);
+
+			// Step 2: Fetch account data for the first 10 users
+			const customersSubset = data.customers.slice(
+				indexOfFirstItem,
+				indexOfLastItem
+			);
+
 			const userAccounts = await Promise.all(
-				customers.map(async (user) => {
+				customersSubset.map(async (user) => {
 					const accountData = await getUserAccounts(user.customerId, token);
 					return {
 						...user,
@@ -120,8 +188,17 @@ export const Users = () => {
 				})
 			);
 
-			setUsers(userAccounts); // Set the users data along with accounts
-			setTempUsers(userAccounts);
+			// Merge account data back into the full users array
+			const updatedUsers = [...data.customers];
+			userAccounts.forEach((user, index) => {
+				const originalIndex = indexOfFirstItem + index;
+				updatedUsers[originalIndex] = user;
+			});
+
+			// Update the users state with the updated accounts for the first 10 users
+			setUsers(updatedUsers);
+			setTempUsers(updatedUsers);
+
 			toast.success("Users and account data retrieved successfully!");
 			setLoading(false);
 		} catch (error) {
@@ -178,7 +255,17 @@ export const Users = () => {
 		}
 	};
 
-	console.log(users);
+	const fetchAccountsForCurrentPage = async (customerIds, token) => {
+		const startIdx = (currentPage - 1) * usersPerPage;
+		const endIdx = startIdx + usersPerPage;
+		const userIdsForPage = customerIds.slice(startIdx, endIdx);
+
+		const accountsData = await Promise.all(
+			userIdsForPage.map((customerId) => getUserAccounts(customerId, token))
+		);
+
+		setAccounts(accountsData.flat());
+	};
 
 	useEffect(() => {
 		getUsers();
@@ -237,7 +324,7 @@ export const Users = () => {
 						</div>
 					</form>
 
-					{users.length > 0 ? (
+					{currentUsers.length > 0 ? (
 						<div className='flex-1 overflow-auto no-scrollbar'>
 							<h2 className='text-white mb-6'>User Table</h2>
 							<div className='bg-[#1b1b1b] text-white rounded-lg'>
@@ -277,7 +364,7 @@ export const Users = () => {
 											</tr>
 										</thead>
 										<tbody className='no-scrollbar'>
-											{users
+											{currentUsers
 												.sort((a, b) => {
 													const dateA = new Date(handleDateTime(a.createdAt));
 													const dateB = new Date(handleDateTime(b.createdAt));
@@ -332,6 +419,30 @@ export const Users = () => {
 										</tbody>
 									</table>
 								</div>
+							</div>
+							<div className='flex justify-between items-center mt-4'>
+								<button
+									onClick={handlePrevPage}
+									disabled={currentPage === 1}
+									className={`p-2 px-4 rounded bg-[#868150] text-white ${
+										currentPage === 1 && "opacity-50 cursor-not-allowed"
+									}`}
+								>
+									Previous
+								</button>
+								<span className='text-white'>
+									Page {currentPage} of {Math.ceil(users.length / itemsPerPage)}
+								</span>
+								<button
+									onClick={handleNextPage}
+									disabled={indexOfLastItem >= users.length}
+									className={`p-2 px-4 rounded bg-[#868150] text-white ${
+										indexOfLastItem >= users.length &&
+										"opacity-50 cursor-not-allowed"
+									}`}
+								>
+									Next
+								</button>
 							</div>
 						</div>
 					) : (
