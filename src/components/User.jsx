@@ -76,7 +76,7 @@ export const Users = () => {
 
 	const getNewItems = async (item) => {
 		const token = localStorage.getItem("payittoken");
-		console.log("firsted", item);
+
 		// Calculate the starting index for the current page
 		const userAccounts = await Promise.all(
 			currentUsers.map(async (user) => {
@@ -92,10 +92,10 @@ export const Users = () => {
 		const updatedUsers = [...users];
 		// console.log(currentPage, itemsPerPage, currentPage * itemsPerPage);
 		const indexed = (item + 1) * itemsPerPage - itemsPerPage;
-		console.log("first", indexed);
+
 		userAccounts.forEach((user, index) => {
 			const originalIndex = indexed + index;
-			console.log(originalIndex);
+
 			updatedUsers[originalIndex] = user;
 		});
 
